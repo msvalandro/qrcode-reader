@@ -9,7 +9,17 @@ export default createGlobalStyle`
   }
 
   body {
+    background: #dfe6e9;
     -webkit-font-smoothing: antialiased;
+  }
+
+  body, #root {
+    height: 100vh;
+  }
+
+  #root {
+    display: flex;
+    flex-direction: column;
   }
 
   body, input, button {
