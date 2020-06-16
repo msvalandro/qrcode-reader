@@ -20,6 +20,7 @@ import {
   Popup,
 } from './styles';
 import Button from '../../components/Button';
+import api from '../../services/api';
 
 interface Product {
   id: string;
@@ -73,11 +74,8 @@ const Register: React.FC = () => {
   );
 
   const transformData = useCallback(data => {
-    const properties = data.split('#');
-    return {
-      id: properties[3],
-      name: properties[1],
-    };
+    console.log(data);
+    return JSON.parse(data);
   }, []);
 
   const handleScan = useCallback(
@@ -119,10 +117,22 @@ const Register: React.FC = () => {
     setShowPopup(false);
   }, []);
 
-  const handleEnviarProdutos = useCallback(() => {
+  const handleEnviarProdutos = useCallback(async () => {
+    const headers = { 'Content-Type': 'application/json' };
+    const productsData = products.map(product => ({
+      product_id: product.id,
+      quantity: product.quantity,
+    }));
+
+    await api.post(
+      'purchase_products/add_products',
+      { products: productsData },
+      { headers },
+    );
+
     setShowModal(false);
     setProducts([]);
-  }, []);
+  }, [products]);
 
   return (
     <Container>
