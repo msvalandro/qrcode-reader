@@ -74,7 +74,6 @@ const Register: React.FC = () => {
   );
 
   const transformData = useCallback(data => {
-    console.log(data);
     return JSON.parse(data);
   }, []);
 
